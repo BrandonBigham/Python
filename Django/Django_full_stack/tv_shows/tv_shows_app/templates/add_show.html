@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a show</title>
+</head>
+<body>
+    <h1>Add a Show</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+    <form action="/proccess/show" method="POST">
+        {% csrf_token%}
+        <p>Title: <input type="textarea" name="title"></p>
+        <p>Description: <input class='description' type="textarea" name="description"></p>
+        <P>Network: <input type="textarea" name="network"> </P>
+        <p>Release Date: <input type="date" name="release_date"></p>
+        <input type="submit" value="Add">
+    </form>
+</body>
+</html>

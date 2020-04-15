@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>better</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Size</th>
+            <th>Style</th>
+        </tr>
+        {% for x in all_shoes %}
+        <tr>
+            <td>{{x.id}}</td>
+            <td>{{x.brand}}</td>
+            <td>{{x.size}}</td>
+            <td>{{x.style}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <form action="/process" value="newshoe">
+        <p>Brand<input type="text" name="Brand"></p>
+        <p>Size<input type="text" name="Size"></p>
+        <p>Style<input type="text" name="Style"></p>
+        <input type="submit" value="add">
+    </form>
+</body>
+</html>

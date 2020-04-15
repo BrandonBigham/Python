@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit {{show.title}}</title>
+</head>
+<body>
+    <h1>Edit show {{show.id}}</h1><a href="/show/info/{{show.id}}">Go back</a>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+    <form action="/edit/show/{{show.id}}/proccess" method="POST">
+        {% csrf_token%}
+        <p>Title: <input type="textarea" name="title" value={{show.title}}></p>
+        <p>Description: <input class='description' type="textarea" name="description" value="{{show.description}}"></p>
+        <P>Network: <input type="textarea" name="network" value="{{show.network}}"> </P>
+        <p>Release Date: <input type="date" name="release_date" value="{{show.release_date}}"></p>
+        <input type="submit" value="Edit">
+    </form>
+</body>
+</html>

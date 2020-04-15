@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Page</title>
+<style>
+    table{
+        outline:  1px solid black;
+        width: 35%;
+    }
+    th{
+        text-align: left;
+    }
+    td{
+        outline: 1px solid black;
+        outline-offset: 2px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+    <h1>Hello <a href="/profile">{{request.session.user}}</a>!</h1> <!-- Show the name of whoever is logged in instead of the ______ -->
+    <a href="/">Fake Logout to go back to login page</a> <!-- Ease of access, don't worry about changing this, but know how to do a logout! -->
+    <h1>Vote for the Cutest Cat of 2020!</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Owner's Name</th>
+            <th># of votes</th>
+            <th>Actions</th>
+        </tr>
+        {% for cat in user.cats_voted_for.all%}
+            <tr>
+                <td><a href="cat/{{cat.id}}">{{cat.name}}</a></td>
+                <td>{{cat.owner.name}}</td>
+                <td>{{cat.users_that_voted.count}} vote(s)</td>
+                <td>
+                        <form action="/unvote/{{cat.id}}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Unvote for {{cat.name}}">
+                        </form>
+                    {% if cat.owner.id == request.session.user_id %}
+                        <form action='/delete/{{cat.id}}' method='POST'>
+                            {% csrf_token %}
+                            <input type="submit" value='Delete {{cat.name}}'>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <h2>Cats you have not yet voted for!</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Owner's Name</th>
+            <th># of votes</th>
+            <th>Actions</th>
+        </tr>
+        {% for cat in all_cats%}
+            {% if cat not in user.cats_voted_for.all %}
+                <tr>
+                    <td><a href="cat/{{cat.id}}">{{cat.name}}</a></td>
+                    <td>{{cat.owner.name}}</td>
+                    <td>{{cat.users_that_voted.count}} vote(s)</td>
+                    <td>
+                        {% if user not in cat.users_that_voted.all %}
+                            <form action="/vote/{{cat.id}}" method="POST">
+                                {% csrf_token %}
+                                <input type="submit" value="Vote for {{cat.name}}">
+                            </form>
+                        {%endif%}
+                        {% if cat.owner.id == request.session.user_id %}
+                            <form action='/delete/{{cat.id}}' method='POST'>
+                                {% csrf_token %}
+                                <input type="submit" value='Delete {{cat.name}}'>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    <h1>Submit a Cat</h1>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form action="/cats" method="POST">
+        {% csrf_token %}
+        <p>Name:<input type="textarea" name="name"> <input type="submit" value="Add Cat"></p>
+    </form>
+    <!-- Show error messages if there is a problem -->
+</body>
+</html>

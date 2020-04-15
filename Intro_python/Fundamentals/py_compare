@@ -1,0 +1,37 @@
+use def in python instead of function 
+the number one that was concatonated is stated with "str()"
+dont need to define a variable by stating "var"
+do not need a semicolon to state a command
+use print in python instad of return
+
+function ifstatement(){
+    var myvariable = 50;
+    var bool = true;
+    if (myvariable == 99999 && false){
+        my variable--;
+        console.log("to infinity");
+    }
+    else if(my variable == 50){
+        myvariable++;
+        console.log("and beyond");
+    }
+}
+
+use def instead of function
+use colon instead of curly bracket
+can write and instead or &&
+use print instead of console.log
+use -= instead of -- as well as += instead of ++
+have to use elif instead of else if
+have to capitalize true and false in python for boolean
+
+function forloop(arr){
+    arr.pop();
+    arr.push(6);
+    for(var i =0; i < arr.length; i++){
+        console.log(arr[i]);
+    }
+}
+forloop([3,7,2,9]);
+
+append instead of push

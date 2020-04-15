@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form{
+            display: inline-block;
+            vertical-align: top;
+            width: 40%;
+        }
+    </style>
+</head>
+<body>
+    <form action="/add/teacher" method="POST">
+        {%csrf_token%}
+        <h1>Add a Teacher</h1>
+        <p>Name: <input type="textarea" name="teacher_name"></p>
+        <p>Age: <input type="textarea" name="age"></p>
+        <input type="submit" value="add">
+    </form>
+    <form action="/add/student" method="POST">
+        {%csrf_token%}
+        <h1>Add a Student</h1>
+        <p>Name: <input type="textarea" name="student_name"></p>
+        <p>Catch: <input type="textarea" name="catchphrase"></p>
+        <p>Teacher: <select name="teacher">
+            {% for teachers in all_teachers %}
+                <option value={{teachers.id}}>{{teachers.name}}</option>
+            {% endfor %}
+        </select></p>
+        <input type="submit" value="add">
+    </form>
+    <h1>All the Teachers</h1>
+        <ul>
+          {% for teachers in all_teachers %}
+            <li>{{teachers.name}}
+              <ul>
+                {% for students in teachers.students.all%}	
+                  <li>{{students.name}}</li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+</body>
+</html>

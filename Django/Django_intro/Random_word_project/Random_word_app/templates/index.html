@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Word Generator</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        input{
+            display: block;
+            margin: 30px;
+            margin-left: 47%;
+        }
+        textarea{
+            margin-left: 43.7%;
+        }
+        .reset{
+            margin-left: 48.2%
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Word (attempt # {{request.session.num}})</h1>
+    <textarea>{{request.session.string}}</textarea>
+    <form action="random_word" method="POST">
+        {% csrf_token%}
+        <input type="submit" value="Generator">
+    </form>
+    <form action="random_word/reset" method="POST">
+        {% csrf_token%}
+        <input class="reset" type="submit" value="reset">
+    </form>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Shows</title>
+    <style>
+        table{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Shows</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Network</th>
+                <th>Release Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in all_shows %}
+                <tr>
+                    <th>{{x.id}}</th>
+                    <th>{{x.title}}</th>
+                    <th>{{x.network}}</th>
+                    <th>{{x.release_date}}</th>
+                    <th><a href="show/info/{{x.id}}">View</a>|<a href="edit/show/{{x.id}}">Edit</a>|<a href="show/destroy/{{x.id}}">Delete</a></th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a type="submit" href="/add/show">Add a show</a>
+</body>
+</html>
